@@ -38,6 +38,7 @@ def retrieve_phone_code(driver) -> str:
 class UrbanRoutesPage:
     from_field = (By.ID, 'from')
     to_field = (By.ID, 'to')
+    call_taxi_button = (By.ID, 'call-taxi')
     comfort_tariff = (By.CLASS_NAME, 'tariff-comfort')
     phone_field = (By.ID, 'phone')
     confirm_phone_button = (By.ID, 'confirm-phone')
@@ -65,15 +66,11 @@ class UrbanRoutesPage:
         )
         to_element.send_keys(to_address)
 
-    def get_from(self):
-        return self.driver.find_element(*self.from_field).get_property('value')
-
-    def get_to(self):
-        return self.driver.find_element(*self.to_field).get_property('value')
+    def call_taxi(self):
+        self.driver.find_element(*self.call_taxi_button).click()
 
     def select_comfort_tariff(self):
         self.driver.find_element(*self.comfort_tariff).click()
-
 
     def enter_phone(self, phone):
         self.driver.find_element(*self.phone_field).send_keys(phone)
@@ -81,12 +78,9 @@ class UrbanRoutesPage:
 
     def enter_card_details(self, card_number, cvv):
         self.driver.find_element(*self.card_number_field).send_keys(card_number)
-
-        # CVV
         cvv_field = self.driver.find_element(By.ID, 'code')
         cvv_field.send_keys(cvv)
         cvv_field.send_keys(Keys.TAB)
-
         self.driver.find_element(*self.save_card_button).click()
 
     def enter_driver_message(self, message):
@@ -95,7 +89,6 @@ class UrbanRoutesPage:
     def select_extras(self):
         self.driver.find_element(*self.blanket_checkbox).click()
         self.driver.find_element(*self.tissues_checkbox).click()
-
         ice_cream = self.driver.find_element(*self.ice_cream_checkbox)
         ice_cream.click()
         ice_cream.click()
@@ -108,12 +101,10 @@ class UrbanRoutesPage:
 
 
 class TestUrbanRoutes:
-
     driver = None
 
     @classmethod
     def setup_class(cls):
-        # no lo modifiques, ya que necesitamos un registro adicional habilitado para recuperar el código de confirmación del teléfono
         options = webdriver.ChromeOptions()
         options.set_capability("goog:loggingPrefs", {'performance': 'ALL'})
         cls.driver = webdriver.Chrome(options=options)
@@ -121,46 +112,39 @@ class TestUrbanRoutes:
     def test_set_route(self):
         self.driver.get(data.urban_routes_url)
         routes_page = UrbanRoutesPage(self.driver)
-
-        address_from = data.address_from
-        address_to = data.address_to
-
-        routes_page.set_from(address_from)
-        routes_page.set_to(address_to)
-
-        assert routes_page.get_from() == address_from
-        assert routes_page.get_to() == address_to
-
-    def test_complete_ride_order(self):
-        self.driver.get(data.urban_routes_url)
-        routes_page = UrbanRoutesPage(self.driver)
-
-        # Dirección
         routes_page.set_from(data.address_from)
         routes_page.set_to(data.address_to)
+        routes_page.call_taxi()
+        assert routes_page.get_from() == data.address_from
+        assert routes_page.get_to() == data.address_to
 
-        # Tarifa
+    def test_set_comfort(self):
+        routes_page = UrbanRoutesPage(self.driver)
         routes_page.select_comfort_tariff()
 
-        # teléfono y confirmar
+    def test_set_phone_number(self):
+        routes_page = UrbanRoutesPage(self.driver)
         routes_page.enter_phone(data.phone_number)
 
-        # Agregar tarjeta
+    def test_add_card(self):
+        routes_page = UrbanRoutesPage(self.driver)
         routes_page.enter_card_details(data.card_number, data.card_code)
 
-        # mensaje para el conductor
+    def test_write_message(self):
+        routes_page = UrbanRoutesPage(self.driver)
         routes_page.enter_driver_message('Muéstrame el camino al museo')
 
-        # opciones extra
+    def test_blanket(self):
+        routes_page = UrbanRoutesPage(self.driver)
         routes_page.select_extras()
 
-        # Realizar pedido
+    def test_find_driver(self):
+        routes_page = UrbanRoutesPage(self.driver)
         routes_page.place_order()
 
-        # Esperar información del conductor
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(UrbanRoutesPage.driver_info))
-
-        # Verificar que la información del conductor es visible
+    def test_wait_driver_information(self):
+        routes_page = UrbanRoutesPage(self.driver)
+        routes_page.wait_for_driver_info()
         assert self.driver.find_element(*UrbanRoutesPage.driver_info).is_displayed()
 
     @classmethod
