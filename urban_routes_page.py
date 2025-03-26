@@ -1,7 +1,8 @@
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import Keys
-from selectors import *
+from selectors import from_field, to_field, comfort_tariff, phone_field, confirm_phone_button, card_number_field, save_card_button, message_field, blanket_checkbox, tissues_checkbox, ice_cream_checkbox, order_button, driver_info
 
 class UrbanRoutesPage:
     def __init__(self, driver):
