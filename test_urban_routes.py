@@ -1,3 +1,4 @@
+from selectors import driver_info, comfort_tariff, from_field, to_field, phone_field, confirm_phone_button, card_number_field, save_card_button, message_field, blanket_checkbox, tissues_checkbox, ice_cream_checkbox, order_button
 import pytest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
