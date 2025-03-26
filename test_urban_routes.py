@@ -6,7 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 import data
 from urban_routes_page import UrbanRoutesPage
 from utils import retrieve_phone_code
-from selectors import driver_info
 
 class TestUrbanRoutes:
     driver = None
