@@ -3,7 +3,7 @@ import time
 from selenium.common import WebDriverException
 
 def retrieve_phone_code(driver) -> str:
-    """Devuelve un número de confirmación de teléfono como string."""
+    
     code = None
     for _ in range(10):
         try:
