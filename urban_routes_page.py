@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import Keys
-from selectors import
+import selectors
 
 class UrbanRoutesPage:
     def __init__(self, driver):
@@ -21,10 +21,10 @@ class UrbanRoutesPage:
         to_element.send_keys(to_address)
 
     def get_from(self):
-        return self.driver.find_element(*from_field).get_property('value')
+        return self.driver.find_element(*selectors.from_field).get_property('value')
 
     def get_to(self):
-        return self.driver.find_element(*to_field).get_property('value')
+        return self.driver.find_element(*selectors.to_field).get_property('value')
 
     def select_comfort_tariff(self):
         self.driver.find_element(*selectors.comfort_tariff).click()
@@ -35,9 +35,11 @@ class UrbanRoutesPage:
 
     def enter_card_details(self, card_number, cvv):
         self.driver.find_element(*selectors.card_number_field).send_keys(card_number)
-        cvv_field = self.driver.find_element(By.ID, 'code')
+        
+        cvv_field = self.driver.find_element(By.ID, 'code')  
         cvv_field.send_keys(cvv)
         cvv_field.send_keys(Keys.TAB)
+        
         self.driver.find_element(*selectors.save_card_button).click()
 
     def enter_driver_message(self, message):
@@ -46,6 +48,7 @@ class UrbanRoutesPage:
     def select_extras(self):
         self.driver.find_element(*selectors.blanket_checkbox).click()
         self.driver.find_element(*selectors.tissues_checkbox).click()
+        
         ice_cream = self.driver.find_element(*selectors.ice_cream_checkbox)
         ice_cream.click()
         ice_cream.click()
