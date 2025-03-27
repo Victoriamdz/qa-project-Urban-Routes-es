@@ -14,10 +14,17 @@ def retrieve_phone_code(driver) -> str:
                 body = driver.execute_cdp_cmd('Network.getResponseBody',
                                               {'requestId': message_data["params"]["requestId"]})
                 code = ''.join([x for x in body['body'] if x.isdigit()])
+                if code:
+                    break 
         except WebDriverException:
             time.sleep(1)
             continue
-        if not code:
-            raise Exception("No se encontró el código de confirmación del teléfono.\n"
-                            "Usa 'retrieve_phone_code' solo después de haberlo solicitado en la app.")
-        return code
+
+        if code: 
+            break
+
+    if not code:
+        raise Exception("No se encontró el código de confirmación del teléfono.\n"
+                        "Usa 'retrieve_phone_code' solo después de haberlo solicitado en la app.")
+
+    return code 
