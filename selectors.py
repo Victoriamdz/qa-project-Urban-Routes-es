@@ -4,6 +4,11 @@ from selenium.webdriver.common.by import By
 from_field = (By.ID, 'from')
 to_field = (By.ID, 'to')
 
+# Pedir taxi
+
+pedir_taxi = (By.CLASS_NAME, 'button round')
+
+
 # Tarifa
 comfort_tariff = (By.ID, 'tariff-comfort')
 
