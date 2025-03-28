@@ -25,7 +25,6 @@ message_field = (By.ID, 'driver-message')
 
 # Checkboxes de opciones extra
 blanket_checkbox = (By.ID, 'option-blanket')
-tissues_checkbox = (By.ID, 'option-tissues')
 ice_cream_checkbox = (By.ID, 'option-ice-cream')
 
 # Botón para ordenar
