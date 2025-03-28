@@ -24,6 +24,7 @@ class TestUrbanRoutes:
 
         routes_page.set_from(data.address_from)
         routes_page.set_to(data.address_to)
+        routes_page.click_call_a_taxi()
 
         assert routes_page.get_from() == data.address_from
         assert routes_page.get_to() == data.address_to
