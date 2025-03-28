@@ -50,7 +50,6 @@ class UrbanRoutesPage:
 
     def select_extras(self):
         self.driver.find_element(*selectors.blanket_checkbox).click()
-        self.driver.find_element(*selectors.tissues_checkbox).click()
         
         ice_cream = self.driver.find_element(*selectors.ice_cream_checkbox)
         ice_cream.click()
