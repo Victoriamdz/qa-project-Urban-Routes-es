@@ -26,6 +26,9 @@ class UrbanRoutesPage:
     def get_to(self):
         return self.driver.find_element(*selectors.to_field).get_property('value')
 
+    def click_call_a_taxi(self):
+    self.driver.find_element(*selectors.pedir_taxi).click()
+
     def select_comfort_tariff(self):
         self.driver.find_element(*selectors.comfort_tariff).click()
 
