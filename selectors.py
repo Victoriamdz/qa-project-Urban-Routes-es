@@ -1,34 +1,35 @@
 from selenium.webdriver.common.by import By
 
-# Campos de entrada
-from_field = (By.ID, 'from')
-to_field = (By.ID, 'to')
+#  Campos de entrada
+from_field = (By.XPATH, '//*[@id="root"]/div/div[3]/div[2]/div[1]/div[2]/div[1]/label')
+to_field = (By.XPATH, '//*[@id="root"]/div/div[3]/div[2]/div[2]/div[2]/div[1]/label')
 
-# Pedir taxi
+#  Botón "Pedir un taxi"
+pedir_taxi = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[1]/div[3]/div[1]/button')
 
-pedir_taxi = (By.CLASS_NAME, 'button round')
+
+#  Tarifa Comfort
+comfort_tariff = (By.XPATH, ‘//*[@id="root"]/div/div[3]/div[3]/div[2]/div[1]/div[5]/div[1]/img')
 
 
-# Tarifa
-comfort_tariff = (By.ID, 'tariff-comfort')
-
-# Número de teléfono
-phone_field = (By.ID, 'phone')
-confirm_phone_button = (By.ID, 'confirm-phone')
+#  Número de teléfono
+phone_field = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[1]/div')
+confirm_phone_button = (By.XPATH, '//*[@id="root"]/div/div[1]/div[2]/div[1]/form/div[2]/button')
 
 # Método de pago
-card_number_field = (By.ID, 'card-number')
-save_card_button = (By.ID, 'save-card')
+card_number_field = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[2]/div[1]')
+save_card_button = (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[2]/form/div[3]/button[1]')
 
 # Mensaje para el conductor
-message_field = (By.ID, 'driver-message')
+message_field = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[3]/div/label')
 
-# Checkboxes de opciones extra
-blanket_checkbox = (By.ID, 'option-blanket')
-ice_cream_checkbox = (By.ID, 'option-ice-cream')
+#  Checkboxes de opciones extra
+blanket_checkbox = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div/span')
 
-# Botón para ordenar
-order_button = (By.ID, 'order-ride')
+ice_cream_checkbox = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]')
 
-# Información del conductor
-driver_info = (By.CLASS_NAME, 'driver-info')
+#  Botón para ordenar viaje
+order_button = (By.XPATH, '//*[@id="root"]/div/div[3]/div[4]/button')
+
+#  Información del conductor
+driver_info = (By.XPATH, '//div[contains(@class, "driver-info")]')
