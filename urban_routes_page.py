@@ -27,10 +27,15 @@ class UrbanRoutesPage:
         return self.driver.find_element(*selectors.to_field).get_property('value')
 
     def click_call_a_taxi(self):
-    self.driver.find_element(*selectors.pedir_taxi).click()
+        """Hace clic en el botón 'Pedir un taxi' después de verificar su presencia."""
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(selectors.pedir_taxi)
+        ).click()
 
     def select_comfort_tariff(self):
-        self.driver.find_element(*selectors.comfort_tariff).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(selectors.comfort_tariff)
+        ).click()
 
     def enter_phone(self, phone):
         self.driver.find_element(*selectors.phone_field).send_keys(phone)
@@ -49,14 +54,21 @@ class UrbanRoutesPage:
         self.driver.find_element(*selectors.message_field).send_keys(message)
 
     def select_extras(self):
-        self.driver.find_element(*selectors.blanket_checkbox).click()
-        
-        ice_cream = self.driver.find_element(*selectors.ice_cream_checkbox)
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(selectors.blanket_checkbox)
+        ).click()
+
+        ice_cream = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(selectors.ice_cream_checkbox)
+        )
+
         ice_cream.click()
         ice_cream.click()
 
     def place_order(self):
-        self.driver.find_element(*selectors.order_button).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(selectors.order_button)
+        ).click()
 
     def wait_for_driver_info(self):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(selectors.driver_info))
